@@ -4,17 +4,12 @@ package com.algaworks.delivery.notificacao;
 import com.algaworks.delivery.model.Cliente;
 import org.springframework.stereotype.Component;
 
+@Component
+@TipoNotificador(GrauNotificacao.NORMAL)
 public class NotifiicadorEmail implements Notifiicador {
 
-    private String smtpServer;
+    private final String smtpServer =  "smtp.server.algaworks";
 
-    public NotifiicadorEmail(String smtpServer) {
-        this.smtpServer = smtpServer;
-    }
-
-    public NotifiicadorEmail() {
-        System.out.println("NotifiicadorEmail");
-    }
 
     @Override
     public void notificar(Cliente cliente, String message) {

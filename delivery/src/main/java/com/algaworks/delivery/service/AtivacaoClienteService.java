@@ -1,24 +1,21 @@
 package com.algaworks.delivery.service;
 
 import com.algaworks.delivery.model.Cliente;
-import com.algaworks.delivery.notificacao.Notifiicador;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class AtivacaoClienteService {
 
-    private Notifiicador notificar;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public AtivacaoClienteService(Notifiicador notificar) {
-        this.notificar = notificar;
-
-        System.out.println("AtivacaoClienteService");
+    public AtivacaoClienteService(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     public void ativar(Cliente cliente, String message) {
-
         cliente.ativar();
-
-        notificar.notificar(cliente, message);
+        applicationEventPublisher.publishEvent(new ClienteAtivadoEvent(cliente));
 
     }
 }
